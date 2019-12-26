@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "Pessoas";
+}
+
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-opacity" style="left:0;width:20%">
+    <div>
+        <br />
+        <div class="w3-row">
+            <img src="~/images/avatar/@ViewBag.AvatarPerfil" style="width:60px;height:60px;display: inline-block;" />
+            <h4 style="display: inline-block;">@ViewBag.NomePerfil</h4>
+        </div>
+        <br />
+    </div>
+    <div class="w3-container w3-dark-grey">
+        <h4>Menu</h4>
+    </div>
+    <a href="~/perfil" class="w3-bar-item w3-button">Home</a>
+    <a href="~/perfil/details/@ViewBag.Id" class="w3-bar-item w3-button">Dados do Perfil</a>
+    <a href="~/perfil/edit/@ViewBag.Id" class="w3-bar-item w3-button">Editar Perfil</a>
+    <a href="~/mensagem/create" class="w3-bar-item w3-button">Nova Mensagem</a>
+    <a class="w3-bar-item w3-button w3-red">Pesquisa</a>
+    <a href="~/amigo" class="w3-bar-item w3-button">Amizades</a>
+    <a href="~/perfil/timeline" class="w3-bar-item w3-button">Timeline</a>
+    <a href="~/amigo/convites" class="w3-bar-item w3-button">Convites</a>
+    <a href="~/perfil/delete/@ViewBag.Id" class="w3-bar-item w3-button">Deletar Perfil</a>
+</div>
+
+
+@if (ViewBag.encontradas != null)
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="margin-left:20%">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Usuários</h2>
+                <br />
+                <ul class="w3-ul w3-card-4">
+
+                    @foreach (PerfilViewModel pessoa in @ViewBag.encontradas)
+                    {
+                        <li class="w3-bar">
+                            <a href="@Url.Action("Convidar","Amigo",new { id = pessoa.Id })" class="w3-right w3-bar-item w3-hover-opacity w3-xlarge" style="display:inline-block"><i class="fa fa-users"></i></a>
+                            <img src="~/images/avatar/@Html.DisplayFor(PerfilViewModel => pessoa.Avatar)" class="w3-bar-item w3-circle w3-hide-small" style="width:80px">
+                            <div class="w3-bar-item">
+                                <span class="w3-large">@Html.DisplayFor(PerfilViewModel => pessoa.Nome)</span><br>
+                                <span>@Html.DisplayFor(PerfilViewModel => pessoa.Email)</span><br>
+                                <span>Aniversário em @Html.DisplayFor(PerfilViewModel => pessoa.DataNascimento)</span><br>
+                                <span>@Html.DisplayFor(PerfilViewModel => pessoa.Sobre)</span>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="left:35%;">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Pesquisas</h2>
+                <br />
+                <h5>Nenhum usuário encontrado com o nome fornecido</h5>
+            </div>
+        </div>
+    </div>
+}
+

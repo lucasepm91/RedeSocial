@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "Timeline";
+}
+
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-opacity" style="left:0;width:20%;">
+    <div>
+        <br />
+        <div class="w3-row">
+            <img src="~/images/avatar/@ViewBag.AvatarPerfil" style="width:60px;height:60px;display: inline-block;" />
+            <h4 style="display: inline-block;">@ViewBag.NomePerfil</h4>
+        </div>
+        <br />
+    </div>
+    <div class="w3-container w3-dark-grey">
+        <h4>Menu</h4>
+    </div>
+    <a href="~/perfil" class="w3-bar-item w3-button">Home</a>
+    <a href="~/perfil/details/@ViewBag.Id" class="w3-bar-item w3-button">Dados do Perfil</a>
+    <a href="~/perfil/edit/@ViewBag.Id" class="w3-bar-item w3-button">Editar Perfil</a>
+    <a href="~/mensagem/create" class="w3-bar-item w3-button">Nova Mensagem</a>
+    <a href="~/perfil/pesquisa" class="w3-bar-item w3-button">Pesquisa</a>
+    <a href="~/amigo" class="w3-bar-item w3-button">Amizades</a>
+    <a class="w3-bar-item w3-button w3-red">Timeline</a>
+    <a href="~/amigo/convites" class="w3-bar-item w3-button">Convites</a>
+    <a href="~/perfil/delete/@ViewBag.Id" class="w3-bar-item w3-button">Deletar Perfil</a>
+</div>
+
+
+@if (ViewBag.mensagens != null)
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="margin-left:20%">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Timeline</h2>
+                <br />
+                <ul class="w3-ul w3-card-4">
+
+                    @foreach (MensagemViewModel mensagem in @ViewBag.mensagens)
+                    {
+                        @if (mensagem.PerfilId == ViewBag.Id)
+                        {
+                            <li class="w3-bar w3-display-container">
+                                <img src="~/images/avatar/@ViewBag.fotos[mensagem.PerfilId]" class="w3-bar-item w3-circle w3-hide-small" style="width:80px">
+                                <div class="w3-bar-item">
+                                    <span>@ViewBag.usuarios[mensagem.PerfilId]</span>
+                                </div>
+                                <a href="@Url.Action("Delete","Mensagem",new { id = mensagem.Id })" class="w3-display-bottomleft w3-bar-item w3-hover-opacity w3-xlarge"><i class="fa fa-window-close"></i></a>
+                                <span>
+                                    <textarea class="w3-right" maxlength="140" readonly style="border:0;resize: none;" cols='30' rows='5'>@Html.DisplayFor(MensagemViewModel => mensagem.Conteudo)</textarea>
+                                </span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="w3-bar w3-display-container">
+                                <img src="~/images/avatar/@ViewBag.fotos[mensagem.PerfilId]" class="w3-bar-item w3-circle w3-hide-small" style="width:80px">
+                                <div class="w3-bar-item">
+                                    <span>@ViewBag.usuarios[mensagem.PerfilId]</span>
+                                </div>
+                                <span>
+                                    <textarea class="w3-right" maxlength="140" readonly style="border:0;resize: none;" cols='30' rows='5'>@Html.DisplayFor(MensagemViewModel => mensagem.Conteudo)</textarea>
+                                </span>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="left:35%;">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Timeline</h2>
+                <br />
+                <h4>Nenhuma mensagem para mostrar.</h4>
+                <h6>Faça publicações e conecte-se com outros usuários.</h6>
+            </div>
+        </div>
+    </div>
+}

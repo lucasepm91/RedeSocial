@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <br /><br />
+    <div class="container col-md-4 w3-animate-opacity">
+        <img src="~/images/logo.png" style="width:inherit;height:inherit" />
+    </div>
+    <br />
+    <div class="container col-md-4">
+        <h2 class="w3-xxlarge w3-serif">BemTeVi</h2>
+    </div>
+</div>
+
+<div class="w3-container">
+    <br /><br />
+    <h4 class="w3-xlarge">O BemTeVi ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.</h4>
+    <br /><br />
+    <div class="w3-center">
+        <img src="~/images/grafo_redeSocial.png" style="width:50%;height:50%" />
+    </div>
+    <br /><br />
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{    
+    <div class="w3-container">
+        <div class="w3-left">
+            <a href="~/perfil" class="w3-btn w3-black"><i class="w3-margin-right fa fa-bars"></i>Menu</a>
+        </div>
+    </div>
+}

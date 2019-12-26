@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Pesquisa";
+}
+
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-opacity" style="left:0;width:20%">
+    <div>
+        <br />
+        <div class="w3-row">
+            <img src="~/images/avatar/@ViewBag.AvatarPerfil" style="width:60px;height:60px;display: inline-block;" />
+            <h4 style="display: inline-block;">@ViewBag.NomePerfil</h4>
+        </div>
+        <br />
+    </div>
+    <div class="w3-container w3-dark-grey">
+        <h4>Menu</h4>
+    </div>
+    <a href="~/perfil" class="w3-bar-item w3-button">Home</a>
+    <a href="~/perfil/details/@ViewBag.Id" class="w3-bar-item w3-button">Dados do Perfil</a>
+    <a href="~/perfil/edit/@ViewBag.Id" class="w3-bar-item w3-button">Editar Perfil</a>
+    <a href="~/mensagem/create" class="w3-bar-item w3-button">Nova Mensagem</a>
+    <a class="w3-bar-item w3-button w3-red">Pesquisa</a>
+    <a href="~/amigo" class="w3-bar-item w3-button">Amizades</a>
+    <a href="~/perfil/timeline" class="w3-bar-item w3-button">Timeline</a>
+    <a href="~/amigo/convites" class="w3-bar-item w3-button">Convites</a>
+    <a href="~/perfil/delete/@ViewBag.Id" class="w3-bar-item w3-button">Deletar Perfil</a>
+</div>
+
+
+<div class="w3-container w3-animate-opacity" style="margin-left:20%" id="menu">
+    <br /><br />
+    <h2>Pesquisa</h2>
+    <br />
+    <div>
+        <form asp-action="Pesquisa">            
+            <div class="form-group">
+                <label class="control-label">Nome do usuário:</label>
+                <input name="nomePessoa" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="OK" class="btn btn-default btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

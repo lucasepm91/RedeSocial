@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Convites";
+}
+
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-opacity" style="left:0;width:20%;">
+    <div>
+        <br />
+        <div class="w3-row">
+            <img src="~/images/avatar/@ViewBag.AvatarPerfil" style="width:60px;height:60px;display: inline-block;" />
+            <h4 style="display: inline-block;">@ViewBag.NomePerfil</h4>
+        </div>
+        <br />
+    </div>
+    <div class="w3-container w3-dark-grey">
+        <h4>Menu</h4>
+    </div>
+    <a href="~/perfil" class="w3-bar-item w3-button">Home</a>
+    <a href="~/perfil/details/@ViewBag.Id" class="w3-bar-item w3-button">Dados do Perfil</a>
+    <a href="~/perfil/edit/@ViewBag.Id" class="w3-bar-item w3-button">Editar Perfil</a>
+    <a href="~/mensagem/create" class="w3-bar-item w3-button">Nova Mensagem</a>
+    <a href="~/perfil/pesquisa" class="w3-bar-item w3-button">Pesquisa</a>
+    <a href="~/amigo" class="w3-bar-item w3-button">Amizades</a>
+    <a href="~/perfil/timeline" class="w3-bar-item w3-button">Timeline</a>
+    <a class="w3-bar-item w3-button w3-red">Convites</a>
+    <a href="~/perfil/delete/@ViewBag.Id" class="w3-bar-item w3-button">Deletar Perfil</a>
+</div>
+
+
+@if (ViewBag.meusConvites.Count > 0 || ViewBag.convitesParaMim.Count > 0)
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="margin-left:20%">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Meus convites</h2>
+                <br />
+                @if (ViewBag.meusConvites.Count > 0)
+                {
+                    <ul class="w3-ul w3-card-4">
+                        @foreach (ConviteViewModel convite in @ViewBag.meusConvites)
+                        {
+                            <li class="w3-bar">
+                                <a href="@Url.Action("Bloquear", "Amigo", new { id = convite.Convidado.Id })" class="w3-right w3-bar-item w3-hover-opacity w3-xlarge" style="display:inline-block"><i class="fa fa-window-close"></i></a>
+                                <img src="~/images/avatar/@Html.DisplayFor(ConviteViewModel => convite.Convidado.Avatar)" class="w3-bar-item w3-circle w3-hide-small" style="width:80px">
+                                <div class="w3-bar-item">
+                                    <span class="w3-large">@Html.DisplayFor(ConviteViewModel => convite.Convidado.Nome)</span><br>
+                                    <span>@Html.DisplayFor(ConviteViewModel => convite.Convidado.Email)</span><br>
+                                    <span>@Html.DisplayFor(ConviteViewModel => convite.Convidado.Sobre)</span><br>
+                                    <span>Status do convite: @Html.DisplayFor(ConviteViewModel => convite.Status)</span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <br />
+                    <h5>Você não tem convites para a sua rede em aberto </h5>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-container w3-animate-opacity" id="menu" style="margin-left:20%">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Solicitações de amizade</h2>
+                <br />
+                @if (ViewBag.convitesParaMim.Count > 0)
+                {
+                    <ul class="w3-ul w3-card-4">
+
+                        @foreach (ConviteViewModel convite in @ViewBag.convitesParaMim)
+                        {
+                            <li class="w3-bar">
+                                <a href="@Url.Action("Bloquear", "Amigo", new { id = convite.Convidante.Id })" class="w3-right w3-bar-item w3-hover-opacity w3-xlarge" style="display:inline-block"><i class="fa fa-window-close"></i></a>
+                                <a href="@Url.Action("Aceitar", "Amigo", new { id = convite.Convidante.Id })" class="w3-right w3-bar-item w3-hover-opacity w3-xlarge" style="display:inline-block"><i class="fa fa-users"></i></a>
+                                <img src="~/images/avatar/@Html.DisplayFor(PerfilViewModel => convite.Convidante.Avatar)" class="w3-bar-item w3-circle w3-hide-small" style="width:80px">
+                                <div class="w3-bar-item">
+                                    <span class="w3-large">@Html.DisplayFor(PerfilViewModel => convite.Convidante.Nome)</span><br>
+                                    <span>@Html.DisplayFor(PerfilViewModel => convite.Convidante.Email)</span><br>
+                                    <span>@Html.DisplayFor(PerfilViewModel => convite.Convidante.Sobre)</span><br>
+                                    <span>Status do convite: @Html.DisplayFor(ConviteViewModel => convite.Status)</span>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                }
+                else
+                {
+                    <br />
+                    <h5>Você não tem requisições de amizade aguardando confirmação </h5>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="w3-container w3-animate-opacity" id="menu" style="left:35%;">
+        <br /><br />
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-container">
+                <h2>Convites</h2>
+                <br />
+                <h4>Nenhuma convite para mostrar.</h4>
+                <h6>Procure por outros usuários e faça requisições de amizade.</h6>
+            </div>
+        </div>
+    </div>
+}
+
+
